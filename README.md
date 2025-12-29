@@ -47,33 +47,38 @@ This tool ingests real-time order book data from Binance, calculates key microst
 
 ## Quick Start
 
-### Prerequisites
-- Python 3.11 or higher
-- pip or poetry
+**Want to get started immediately?** See **[QUICKSTART.md](QUICKSTART.md)** for a 5-minute setup guide.
 
 ### Installation
 
-1. Clone the repository:
 ```bash
+# 1. Clone the repository
 git clone <your-repo-url>
-cd market-microstructure
-```
+cd market-microstructure/backend
 
-2. Set up the backend:
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
+# 2. Run setup script
+./setup.sh              # macOS/Linux
+# OR
+setup.bat               # Windows
 
-3. Run the demo:
-```bash
-cd src
-python main.py
+# 3. Run the application
+python run.py
 ```
 
 You should see real-time order book updates with metrics streaming to your console.
+
+**Encountering errors?** See [backend/TROUBLESHOOTING.md](backend/TROUBLESHOOTING.md)
+
+### Manual Installation
+
+```bash
+cd backend
+python3 -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
+python run.py
+```
 
 ## Project Structure
 

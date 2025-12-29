@@ -38,20 +38,63 @@ backend/
 ### Prerequisites
 
 - Python 3.11 or higher
-- pip or poetry for package management
+- Internet connection (for Binance WebSocket API)
+- pip for package management
 
-### Installation
+### Quick Installation
 
-1. Create a virtual environment:
+**Option 1: Automated Setup (Recommended)**
+
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# macOS/Linux
+./setup.sh
+
+# Windows
+setup.bat
 ```
 
-2. Install dependencies:
+The setup script will:
+- Check Python version
+- Create virtual environment
+- Install dependencies
+- Handle installation errors automatically
+
+**Option 2: Manual Installation**
+
 ```bash
+# 1. Create virtual environment
+python3 -m venv venv
+
+# 2. Activate virtual environment
+source venv/bin/activate  # macOS/Linux
+# OR
+venv\Scripts\activate     # Windows
+
+# 3. Upgrade pip and tools
+pip install --upgrade pip setuptools wheel
+
+# 4. Install dependencies
 pip install -r requirements.txt
+
+# If you encounter installation errors, try minimal installation:
+pip install -r requirements-minimal.txt
 ```
+
+**Option 3: Direct Installation (No Virtual Environment)**
+
+```bash
+# Only if you know what you're doing
+pip install websockets python-dotenv
+```
+
+### Troubleshooting Installation
+
+If you encounter errors during installation, see **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** for detailed solutions to common issues including:
+
+- Failed to build pydantic-core wheels
+- ModuleNotFoundError
+- Python version issues
+- Platform-specific problems (macOS M1/M2, Windows, Linux)
 
 ## Usage
 
