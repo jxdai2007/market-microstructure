@@ -13,7 +13,7 @@ Get up and running with the Market Microstructure Analysis tool in 5 minutes.
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
+git clone <https://github.com/jxdai2007/market-microstructure>
 cd market-microstructure/backend
 ```
 
@@ -116,6 +116,26 @@ python3 --version
 # Must be 3.11 or higher
 # Download from: https://www.python.org/downloads/
 ```
+
+### SSL Certificate Verification Errors
+
+If you encounter SSL certificate verification errors:
+
+**Symptoms:**
+- `SSLCertVerificationError: certificate verify failed`
+- Connection fails when starting the backend
+
+**Quick Fix (Development Only):**
+1. Open `backend/.env`
+2. Add or update: `BINANCE_VERIFY_SSL=false`
+3. Restart the backend
+
+**⚠️ Security Warning:** Disabling SSL verification removes protection against man-in-the-middle attacks. Only use this setting for local development/testing.
+
+**Proper Fix (Recommended for Production):**
+1. Update your system's CA certificates
+2. Ensure Python's `certifi` package is up to date: `pip install --upgrade certifi`
+3. Keep `BINANCE_VERIFY_SSL=true` (or remove the setting to use the secure default)
 
 ### Still Having Issues?
 

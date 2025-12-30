@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+import ssl
 from typing import Callable, Optional, Any, Dict
 import websockets
 from websockets.client import WebSocketClientProtocol
@@ -40,6 +41,28 @@ class BinanceOrderBookClient:
 
         self.logger = setup_logger(f"binance.{symbol}")
 
+        # Configure SSL context based on settings
+        self.ssl_context = self._create_ssl_context()
+
+        # Validate SSL configuration at startup
+        BinanceConfig.validate_ssl_config()
+
+    def _create_ssl_context(self) -> Optional[ssl.SSLContext]:
+        """Create SSL context based on configuration.
+
+        Returns:
+            ssl.SSLContext if verification is enabled, None to disable verification
+        """
+        if not BinanceConfig.VERIFY_SSL:
+            # Return None to disable SSL verification
+            return None
+
+        # Use default secure context
+        context = ssl.create_default_context()
+        context.check_hostname = True
+        context.verify_mode = ssl.CERT_REQUIRED
+        return context
+
     async def connect(self) -> None:
         """Establish WebSocket connection and start receiving data.
 
@@ -52,6 +75,7 @@ class BinanceOrderBookClient:
                 self.logger.info(f"Connecting to Binance WebSocket: {self.url}")
                 async with websockets.connect(
                     self.url,
+                    ssl=self.ssl_context,
                     ping_interval=BinanceConfig.PING_INTERVAL,
                     ping_timeout=BinanceConfig.PING_TIMEOUT
                 ) as websocket:
